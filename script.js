@@ -1,34 +1,41 @@
 // declaring constant variables:
-const fileTypes = [                                                           // fileTypes - type of files that drag&drop area should accept
+// fileTypes - type of files that drag&drop area should accept
+const fileTypes = [
     "image/jpeg",
     "image/jpg"
 ];
-const maxSize = 1048576;                                                      // maxSize - maximum size of the file
-const table = document.getElementById('table_body');                 //  table - reference to the body of the table (html element)
-const myArray = [];                                                           // myArray - array in which i will store rows to upload to the site
+// maxSize - maximum size of the file
+const maxSize = 1048576;
+// table - reference to the body of the table (html element)
+const table = document.getElementById('table_body');
+// myArray - array which contains rows to upload to the website
+const myArray = [];
 
-window.addEventListener("dragover",function (evt){       // function that prevents ??????
+window.addEventListener("dragover",function (evt){
     evt.preventDefault();
 },false);
-window.addEventListener("drop",function (evt){           // function that prevents ??????
+window.addEventListener("drop",function (evt){
     evt.preventDefault();
 },false);
-
-function validFileType(file) {                                             // function that checks if the type is correct, returns True when type is correct
+// function that checks if the type is correct, returns True when type is correct
+function validFileType(file) {
     return fileTypes.includes(file.type);
 }
-function validFileSize(file){                                             // function that checks if the size is correct, returns True when size is correct
+// function that checks if the size is correct, returns True when size is correct
+function validFileSize(file){
     return file.size < maxSize;
 }
-function dmsTodd(dms, dmsRef){                                             // function that reformats coordinates from dms to dd format
+// function that returns coordinates in decimal degrees
+function dmsTodd(dms, dmsRef){
     if(dmsRef == "N" || dmsRef == "E"){
         return "+"+Math.round((dms[0] + dms[1]/60 + dms[2]/3600)*100000) /100000;
     } else {
         return "-"+Math.round((dms[0] + dms[1] / 60 + dms[2] / 3600) * 100000) / 100000;
     }
 }
-function addToArray(metaData, name, imgSrc, size){                         // function that makes an array that contains alle the infromations needed in table
-    let temp = [];                                                          // and then add to 'myArray' and calls 'addToTable'
+// function that make temp array with all the info, adds this array to "myArray" and then call "addToTable" function
+function addToArray(metaData, name, imgSrc, size){
+    let temp = [];
     temp.push(name);
     temp.push('<img src = '+imgSrc+' class="thumbnail"></img>');
     temp.push(Math.round((size/1048576) * 100)/100 + " MB");
@@ -52,8 +59,8 @@ function addToArray(metaData, name, imgSrc, size){                         // fu
     document.getElementById('drag_drop_area').innerHTML = "Done! "+myArray.length+" files uploaded. Drop more files here!";
 }
 
-
-function addToTable(row, count){                                        // function that fills the 'table' with rows stored in 'myArray'
+// function that fills the 'table' with rows stored in 'myArray'
+function addToTable(row, count){
     let newRow = document.createElement('tr');
     newRow.id = count-1;
     let newCell = document.createElement('td');
@@ -69,6 +76,8 @@ function addToTable(row, count){                                        // funct
     newButt.classList.add("btn");
     newButt.classList.add("btn-danger");
     newButt.innerHTML = 'X';
+// function that removes the row from the table, by removing the row from "myArray"
+// and then filling the 'table' with other rows stored in 'myArray'
     newButt.onclick = function (){
         let id = this.parentNode.parentNode.id;
         myArray.splice(id,1);
@@ -109,16 +118,19 @@ document.querySelector('#inputGroupFile02').addEventListener('change', function(
         });
     }
 })
+//adding the drag effect on drag&drop area when something is dragged on it
 document.querySelector('.drag_drop_area').addEventListener('dragover', function (evt){ //function that change background color when
     evt.stopPropagation();                                                                                          // something is dragged to the drag&drop area
     evt.preventDefault();
     this.classList.add('is-dragover');
 })
+//removing the drag effect from drag&drop area when dragging is over
 document.querySelector('.drag_drop_area').addEventListener('dragleave', function (evt){ //function that change background color to default when
     evt.stopPropagation();                                                                                           // something is no alonger draged to the drag&drop area
     evt.preventDefault();
     this.classList.remove('is-dragover');
 })
+//removing drag effect from drag&drop area when files are dropped, checking size and type, if correct proceed to adding to the table
 document.querySelector('.drag_drop_area').addEventListener('drop', function (evt){ //
     evt.stopPropagation();
     evt.preventDefault();
