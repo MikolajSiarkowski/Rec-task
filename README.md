@@ -1,7 +1,7 @@
 # Rec-task
 Recruitment task for Be Poland
 
-Hi!, here is my solution of the recruitment task.
+Hi! Here is my solution of the recruitment task.
 
 Tools i used:
 - HTML
