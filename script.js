@@ -4,9 +4,9 @@ const fileTypes = [
     "image/jpeg",
     "image/jpg"
 ];
-// maxSize - maximum size of the file
+// maxSize - maximum size of the file - 1MB
 const maxSize = 1048576;
-// table - reference to the body of the table (html element)
+// table - html element - body of the table
 const table = document.getElementById('table_body');
 // myArray - array which contains rows to upload to the website
 const myArray = [];
