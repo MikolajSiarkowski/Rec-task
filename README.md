@@ -9,6 +9,7 @@ Tools i used:
 - plain Javascript
 - Bootstrap
 - javascript library that reads EXIF data
+
 How to run it:
 1. Download the zip
 2. Unpack zip to the folder
