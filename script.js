@@ -23,7 +23,7 @@ function validFileType(file) {
 }
 // function that checks if the size is correct, returns True when size is correct
 function validFileSize(file){
-    return file.size < maxSize;
+    return file.size <= maxSize;
 }
 // function that returns coordinates in decimal degrees
 function dmsTodd(dms, dmsRef){
@@ -77,6 +77,7 @@ function addToTable(row, count){
     newButt.classList.add("btn");
     newButt.classList.add("btn-danger");
     newButt.innerHTML = 'X';
+
 // function that removes the row from the table, by removing the row from "myArray"
 // and then filling the 'table' with other rows stored in 'myArray'
     newButt.onclick = function (){
