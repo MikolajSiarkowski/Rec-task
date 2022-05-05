@@ -33,11 +33,12 @@ function dmsTodd(dms, dmsRef){
         return "-"+Math.round((dms[0] + dms[1] / 60 + dms[2] / 3600) * 100000) / 100000;
     }
 }
-// function that make temp array with all the info, adds this array to "myArray" and then call "addToTable" function
+// function that make temp array with all the info, adds this array to "myArray"
+// and then call "addToTable" function
 function addToArray(metaData, name, imgSrc, size){
     let temp = [];
     temp.push(name);
-    temp.push('<img src = '+imgSrc+' class="thumbnail"></img>');
+    temp.push('<img src = '+imgSrc+' class="thumbnail"/>');
     temp.push(Math.round((size/1048576) * 100)/100 + " MB");
     let ddLat, ddLong;
     if(metaData.GPSLongitude != undefined){
@@ -96,8 +97,8 @@ function addToTable(row, count){
     newRow.appendChild(newCell);
     table.appendChild(newRow);
 }
-
-document.querySelector('#inputGroupFile02').addEventListener('change', function(evt){ //function that gets metadata form file input
+//function that gets metadata form file input and then calls 'addToArray'
+document.querySelector('#inputGroupFile02').addEventListener('change', function(evt){
     for(let i = 0; i < this.files.length; i++){
         if(!validFileType(this.files[i])){
             alert("Ony .jpg and .jpeg files are correct!");
@@ -119,18 +120,19 @@ document.querySelector('#inputGroupFile02').addEventListener('change', function(
     }
 })
 //adding the drag effect on drag&drop area when something is dragged on it
-document.querySelector('.drag_drop_area').addEventListener('dragover', function (evt){ //function that change background color when
-    evt.stopPropagation();                                                                                          // something is dragged to the drag&drop area
+document.querySelector('.drag_drop_area').addEventListener('dragover', function (evt){
+    evt.stopPropagation();
     evt.preventDefault();
     this.classList.add('is-dragover');
 })
 //removing the drag effect from drag&drop area when dragging is over
-document.querySelector('.drag_drop_area').addEventListener('dragleave', function (evt){ //function that change background color to default when
-    evt.stopPropagation();                                                                                           // something is no alonger draged to the drag&drop area
+document.querySelector('.drag_drop_area').addEventListener('dragleave', function (evt){
+    evt.stopPropagation();
     evt.preventDefault();
     this.classList.remove('is-dragover');
 })
-//removing drag effect from drag&drop area when files are dropped, checking size and type, if correct proceed to adding to the table
+//removing drag effect from drag&drop area when files are dropped, checking size and type, if correct proceed to
+// adding to 'myArray'
 document.querySelector('.drag_drop_area').addEventListener('drop', function (evt){ //
     evt.stopPropagation();
     evt.preventDefault();
@@ -156,7 +158,5 @@ document.querySelector('.drag_drop_area').addEventListener('drop', function (evt
             let size = this.size;
             addToArray(tags, picName,imgSrc, size);
         });
-
     }
-
 })
